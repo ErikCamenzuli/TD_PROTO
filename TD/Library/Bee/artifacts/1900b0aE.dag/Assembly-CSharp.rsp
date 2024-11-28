@@ -361,6 +361,7 @@
 "Assets/Scripts/3D_SCRIPTS/PowerBuilding.cs"
 "Assets/Scripts/3D_SCRIPTS/PowerSource.cs"
 "Assets/Scripts/3D_SCRIPTS/Turret.cs"
+"Assets/Scripts/Camera_Orbit.cs"
 -langversion:9.0
 /deterministic
 /optimize+
