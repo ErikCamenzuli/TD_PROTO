@@ -133,12 +133,12 @@ GameObject:
   - component: {fileID: 10329224}
   - component: {fileID: 10329223}
   - component: {fileID: 10329222}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!154 &10329222
 TerrainCollider:
@@ -227,6 +227,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4236687406706436872, guid: 23131cd31b72fc240b9e24a98dbbabc5, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1541944644}
     - target: {fileID: 6090443463367331065, guid: 23131cd31b72fc240b9e24a98dbbabc5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -360,6 +364,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2db3881b38b65e439bc9b45c8e54930, type: 3}
+--- !u!114 &104695461 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1247355883965728687, guid: f2db3881b38b65e439bc9b45c8e54930, type: 3}
+  m_PrefabInstance: {fileID: 104695460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f34b71030fd6c4ba919f7a0f728d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &269031678
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +592,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1541944643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1541944644}
+  m_Layer: 0
+  m_Name: CentrePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1541944644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541944643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17, y: 0, z: 17.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1679566141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -585,6 +631,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1780342495388104237, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 104695461}
+    - target: {fileID: 1780342495388104237, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 2394987142177050483, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 104695461}
+    - target: {fileID: 2394987142177050483, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectBuilding
+      objectReference: {fileID: 0}
     - target: {fileID: 3739560497112368674, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -668,6 +730,22 @@ PrefabInstance:
     - target: {fileID: 4290752598536436745, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184381031309976810, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 104695461}
+    - target: {fileID: 5184381031309976810, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 5484547099896577704, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 104695461}
+    - target: {fileID: 5484547099896577704, guid: b72c7d17e980fd848a9f680ab5b81c47, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectBuilding
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -756,3 +834,4 @@ SceneRoots:
   - {fileID: 88247161}
   - {fileID: 10329224}
   - {fileID: 1454591674}
+  - {fileID: 1541944644}
