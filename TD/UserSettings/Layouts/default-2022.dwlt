@@ -324,7 +324,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -332,16 +332,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\erikc\OneDrive\Desktop\SA2\TD_PROTO\TD
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: fa5a0000
-    m_LastClickedID: 23290
-    m_ExpandedIDs: 00000000ea5a000000ca9a3bffffff7f
+    m_SelectedIDs: fc5a0000
+    m_LastClickedID: 23292
+    m_ExpandedIDs: 00000000ea5a0000fa5a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -511,7 +511,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 30fbffff
+      m_ExpandedIDs: 1cd4fffff6d4ffffead5ffffead8ffffa4dbffffa4ecfffff2edffff30fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -880,7 +880,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: -1.1671728, y: 3.4337924, z: 0.6143659}
     speed: 2
-    m_Value: {x: -0.18989885, y: 1.095111, z: -0.43478048}
+    m_Value: {x: -1.1671728, y: 3.4337924, z: 0.6143659}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -928,11 +928,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.20457754, y: 0.4518941, z: -0.1072987, w: 0.86166954}
     speed: 2
-    m_Value: {x: -0.11258042, y: 0.8702839, z: -0.23413509, w: -0.41846433}
+    m_Value: {x: 0.20457754, y: 0.4518941, z: -0.1072987, w: 0.86166954}
   m_Size:
     m_Target: 0.8660254
     speed: 2
-    m_Value: 1.4686764
+    m_Value: 0.8660254
   m_Ortho:
     m_Target: 0
     speed: 2
