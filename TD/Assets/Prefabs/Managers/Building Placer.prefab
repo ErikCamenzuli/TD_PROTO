@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &583182678487229794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 741913297756086610}
+  - component: {fileID: 1247355883965728687}
+  m_Layer: 0
+  m_Name: Building Placer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &741913297756086610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583182678487229794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1247355883965728687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583182678487229794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f34b71030fd6c4ba919f7a0f728d17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallPowerBuildingPrefab: {fileID: 6416413843600500306, guid: de33fbd350df330458589b707267250f, type: 3}
+  mediumPowerBuildingPrefab: {fileID: 5346045857503746635, guid: ce6c11b18562c1c4bb2e5107ba545c9a, type: 3}
+  largePowerBuildingPrefab: {fileID: 7474976831526206983, guid: 16e9289431e2a6348b4b030a8049a217, type: 3}
+  turretPrefab: {fileID: 4625834618708784586, guid: 170d9d78f337e2147ab9aacdf9c817ef, type: 3}
+  placementLayer:
+    serializedVersion: 2
+    m_Bits: 8
