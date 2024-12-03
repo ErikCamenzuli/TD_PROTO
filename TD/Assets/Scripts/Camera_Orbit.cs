@@ -28,7 +28,7 @@ public class Orbit_Camera : MonoBehaviour
             return;
 
         //Rotate camera based on mouse movement
-        if (Input.GetKey(KeyCode.Mouse2) || (Input.GetMouseButton(1)) /*Right mouse button*/)/*Middle mouse*/
+        if /*(Input.GetKey(KeyCode.Mouse2) ||*/ (Input.GetMouseButton(1)) /*Right mouse button*//*Middle mouse*/
         {
             currentX += Input.GetAxis("Mouse X") * orbitSpeed * Time.deltaTime;
             currentY -= Input.GetAxis("Mouse Y") * orbitSpeed * Time.deltaTime;
