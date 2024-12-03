@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-
     public GameObject enemyPrefab;
     public Transform[] spawnPoints;
     public Transform[] wayPoints;
