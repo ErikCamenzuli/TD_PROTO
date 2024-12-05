@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Linq;
+using System;
 
 public class BuildingPlacer : MonoBehaviour
 {
@@ -6,14 +8,63 @@ public class BuildingPlacer : MonoBehaviour
     public GameObject mediumPowerBuildingPrefab;
     public GameObject largePowerBuildingPrefab;
     public GameObject turretPrefab;
+    public GameObject turretPlacementEffect;
+    public Vector3 effectsPosition;
+
+    [NonSerialized] public Transform target;
+    public float turretRange = 10f;
+    public float fireRate = 5f;
+    public float fireCountDown = 2.5f;
+
+    public GameObject bulletPrefab;
+    public Transform turretRotationPart;
+    public Transform firePoint;
+    public float turnSpeed = 5f;
+
+    public GameObject[] targetedEnemies = null;
+    public string enemyTag = "Enemy";
 
     private GameObject selectedBuildingPrefab = null;
-    private GameObject tempIndicator = null; // Temporary visual indication for placement
+    private GameObject tempIndicator = null; //Temporary visual indication for placement
     private bool isPlacing = false;
     public LayerMask placementLayer;
 
+    public AudioClip musicClip;
+    public AudioSource objectAutioSource;
+
+    //private void Start()
+    //{
+    //    InvokeRepeating("UpdatingTarget", 0f, 0.5f);
+    //
+    //    ///audio - ADD LATER OR TEMP AUDIO FOR TESTING
+    //    //objectAutioSource.clip = musicClip;
+    //
+    //    GameObject _turretEffect = Instantiate(turretPlacementEffect, GetPlacementPosition(), Quaternion.identity);
+    //    if (turretPlacementEffect || _turretEffect == null)
+    //    {
+    //        return;
+    //    }
+    //}
+
+    public Vector3 GetPlacementPosition()
+    {
+        return transform.position + effectsPosition;
+    }
+
     void Update()
     {
+        if (target == null)
+        {
+            return;
+        }
+
+        Vector3 direction = transform.position - target.position;
+
+        //turret rotation
+        Quaternion rotate = Quaternion.LookRotation(direction);
+        Vector3 rotation = Quaternion.Lerp(turretRotationPart.rotation, rotate, Time.deltaTime * turnSpeed).eulerAngles;
+        turretRotationPart.rotation = Quaternion.Euler(0, rotation.y, 0);
+
         if (isPlacing && tempIndicator != null)
         {
             FollowMousePosition();
@@ -112,4 +163,7 @@ public class BuildingPlacer : MonoBehaviour
         isPlacing = false;
         Debug.Log("Building placement canceled.");
     }
+
+
+
 }

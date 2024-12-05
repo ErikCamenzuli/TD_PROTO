@@ -361,9 +361,13 @@
 "Assets/Scripts/3D_SCRIPTS/CurrencyDisplay.cs"
 "Assets/Scripts/3D_SCRIPTS/Managers/BuildingManager.cs"
 "Assets/Scripts/3D_SCRIPTS/Managers/GameManager.cs"
+"Assets/Scripts/3D_SCRIPTS/OffsetMethods.cs"
 "Assets/Scripts/3D_SCRIPTS/PowerSource.cs"
 "Assets/Scripts/3D_SCRIPTS/Turret.cs"
+"Assets/Scripts/Bullet.cs"
 "Assets/Scripts/Camera_Orbit.cs"
+"Assets/Scripts/Health.cs"
+"Assets/Scripts/NewBehaviourScript.cs"
 -langversion:9.0
 /deterministic
 /optimize+

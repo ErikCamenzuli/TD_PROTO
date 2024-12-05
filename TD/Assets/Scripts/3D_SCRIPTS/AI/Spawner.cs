@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
     public Transform[] spawnPoints;
     public Transform[] wayPoints;
     public int enemiesPerwave = 5;
+    private int currentEnemiesAlive;
     public float timeBetweenWaves = 5f;
     public float spawnDelay = 0.5f;
 
@@ -21,6 +22,7 @@ public class Spawner : MonoBehaviour
         if(!isSpawning)
         {
             StartCoroutine(SpawnWave());
+            enemiesPerwave = currentEnemiesAlive;
         }
     }
 
