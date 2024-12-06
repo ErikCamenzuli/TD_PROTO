@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        // Start a new wave if not currently spawning and no enemies are alive
+        //Start a new wave if not currently spawning and no enemies are alive
         if (!isSpawning && currentEnemiesAlive == 0)
         {
             StartCoroutine(SpawnWave());
@@ -31,19 +31,20 @@ public class Spawner : MonoBehaviour
         isSpawning = true;
         Debug.Log($"Starting wave {currentWave} with {enemiesPerWave} enemies.");
 
-        // Spawn all enemies for the current wave
+        //Spawn all enemies for the current wave
         for (int i = 0; i < enemiesPerWave; i++)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(spawnDelay); // Delay between enemy spawns
+            yield return new WaitForSeconds(spawnDelay); 
         }
 
-        // Wait before the next wave
+        //Wait before the next wave
         yield return new WaitForSeconds(timeBetweenWaves);
 
-        // Prepare for the next wave
+        //Prepare for the next wave
         currentWave++;
-        enemiesPerWave += 2; // Add more enemies per wave
+        //Add more enemies per wave
+        enemiesPerWave += 2; 
         isSpawning = false;
     }
 
@@ -61,13 +62,13 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        // Choose a random spawn point
+        //Choose a random spawn point
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        // Instantiate the enemy at the chosen spawn point
+        //Instantiate the enemy at the chosen spawn point
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
 
-        // Assign waypoints to the enemy's script
+        //Assign waypoints to the enemy's script
         WayPoints enemyScript = enemy.GetComponent<WayPoints>();
         if (enemyScript != null)
         {
@@ -78,14 +79,15 @@ public class Spawner : MonoBehaviour
             Debug.LogWarning("Spawned enemy does not have a WayPoints script.");
         }
 
-        // Track the number of alive enemies
+        //Track the number of alive enemies
         currentEnemiesAlive++;
 
-        // Attach event listener for death handling
+        //Attach event listener for death handling
         Health enemyHealth = enemy.GetComponent<Health>();
         if (enemyHealth != null)
         {
-            enemyHealth.OnDeath += HandleEnemyDeath; // Subscribe to the OnDeath event
+            //Subscribe to the OnDeath event
+            enemyHealth.OnDeath += HandleEnemyDeath; 
         }
         else
         {

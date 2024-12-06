@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0f)
         {
             isDead = true;
-            OnDeath?.Invoke(); // Trigger the death event
+            OnDeath?.Invoke(); 
             Destroy(gameObject);
         }
     }

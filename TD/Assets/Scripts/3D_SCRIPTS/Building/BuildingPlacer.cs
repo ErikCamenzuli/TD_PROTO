@@ -24,7 +24,8 @@ public class BuildingPlacer : MonoBehaviour
     public string enemyTag = "Enemy";
 
     private GameObject selectedBuildingPrefab = null;
-    private GameObject tempIndicator = null; // Temporary visual indication for placement
+    //Temporary visual indication for placement
+    private GameObject tempIndicator = null; 
     private bool isPlacing = false;
     public LayerMask placementLayer;
 
@@ -53,7 +54,7 @@ public class BuildingPlacer : MonoBehaviour
     {
         Vector3 direction = target.position - transform.position;
 
-        // Turret rotation
+        //Turret rotation
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         Vector3 rotation = Quaternion.Lerp(turretRotationPart.rotation, targetRotation, Time.deltaTime * turnSpeed).eulerAngles;
         turretRotationPart.rotation = Quaternion.Euler(0, rotation.y, 0);
@@ -88,7 +89,7 @@ public class BuildingPlacer : MonoBehaviour
             return;
         }
 
-        // Check if the player can afford the building
+        //Check if the player can afford the building
         BuildingInfo buildingInfo = selectedBuildingPrefab.GetComponent<BuildingInfo>();
         if (buildingInfo == null)
         {
@@ -100,11 +101,12 @@ public class BuildingPlacer : MonoBehaviour
         {
             GameManager.Instance.DeductCurrency(buildingInfo.cost);
 
-            // Create placement indicator
+            //Create placement indicator
             tempIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             tempIndicator.transform.localScale = selectedBuildingPrefab.transform.localScale * 0.5f;
             tempIndicator.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.5f);
-            Destroy(tempIndicator.GetComponent<Collider>()); // Remove collider from the indicator
+            //Remove collider from the indicator
+            Destroy(tempIndicator.GetComponent<Collider>()); 
             isPlacing = true;
         }
         else

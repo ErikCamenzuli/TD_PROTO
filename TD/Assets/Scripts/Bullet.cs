@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
     {
         if (targetTransform == null)
         {
-            Destroy(gameObject); // Destroy the bullet if the target is null
+            Destroy(gameObject); 
             return;
         }
 
@@ -39,15 +39,15 @@ public class Bullet : MonoBehaviour
     {
         if (impactEffects != null)
         {
-            // Instantiate impact effects at the correct position and orientation
+            //Instantiate impact effects at the correct position and orientation
             Vector3 impactPosition = transform.position + impactEffectsOffset;
             GameObject effects = Instantiate(impactEffects, impactPosition, Quaternion.identity);
-            Destroy(effects, 2f); // Destroy the effects after 2 seconds
+            Destroy(effects, 2f); 
         }
 
         if (targetTransform != null)
         {
-            // Check if the target has a Health component and deal damage
+            //Check if the target has a Health component and deal damage
             Health targetHealth = targetTransform.GetComponent<Health>();
             if (targetHealth != null)
             {
@@ -59,6 +59,6 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        Destroy(gameObject); // Destroy the bullet after hitting the target
+        Destroy(gameObject); 
     }
 }
