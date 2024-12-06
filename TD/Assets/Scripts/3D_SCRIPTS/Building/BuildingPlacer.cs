@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Linq;
 using System;
 
 public class BuildingPlacer : MonoBehaviour
@@ -25,45 +24,19 @@ public class BuildingPlacer : MonoBehaviour
     public string enemyTag = "Enemy";
 
     private GameObject selectedBuildingPrefab = null;
-    private GameObject tempIndicator = null; //Temporary visual indication for placement
+    private GameObject tempIndicator = null; // Temporary visual indication for placement
     private bool isPlacing = false;
     public LayerMask placementLayer;
 
     public AudioClip musicClip;
-    public AudioSource objectAutioSource;
-
-    //private void Start()
-    //{
-    //    InvokeRepeating("UpdatingTarget", 0f, 0.5f);
-    //
-    //    ///audio - ADD LATER OR TEMP AUDIO FOR TESTING
-    //    //objectAutioSource.clip = musicClip;
-    //
-    //    GameObject _turretEffect = Instantiate(turretPlacementEffect, GetPlacementPosition(), Quaternion.identity);
-    //    if (turretPlacementEffect || _turretEffect == null)
-    //    {
-    //        return;
-    //    }
-    //}
-
-    public Vector3 GetPlacementPosition()
-    {
-        return transform.position + effectsPosition;
-    }
+    public AudioSource objectAudioSource;
 
     void Update()
     {
-        if (target == null)
+        if (target != null)
         {
-            return;
+            RotateTurretTowardsTarget();
         }
-
-        Vector3 direction = transform.position - target.position;
-
-        //turret rotation
-        Quaternion rotate = Quaternion.LookRotation(direction);
-        Vector3 rotation = Quaternion.Lerp(turretRotationPart.rotation, rotate, Time.deltaTime * turnSpeed).eulerAngles;
-        turretRotationPart.rotation = Quaternion.Euler(0, rotation.y, 0);
 
         if (isPlacing && tempIndicator != null)
         {
@@ -74,6 +47,16 @@ public class BuildingPlacer : MonoBehaviour
                 PlaceBuilding();
             }
         }
+    }
+
+    private void RotateTurretTowardsTarget()
+    {
+        Vector3 direction = target.position - transform.position;
+
+        // Turret rotation
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        Vector3 rotation = Quaternion.Lerp(turretRotationPart.rotation, targetRotation, Time.deltaTime * turnSpeed).eulerAngles;
+        turretRotationPart.rotation = Quaternion.Euler(0, rotation.y, 0);
     }
 
     public void SelectBuilding(int buildingType)
@@ -95,29 +78,38 @@ public class BuildingPlacer : MonoBehaviour
                 selectedBuildingPrefab = turretPrefab;
                 break;
             default:
-                Debug.Log("Invalid building type selected.");
+                Debug.LogWarning("Invalid building type selected.");
                 return;
         }
 
+        if (selectedBuildingPrefab == null)
+        {
+            Debug.LogError("Selected building prefab is null.");
+            return;
+        }
+
+        // Check if the player can afford the building
         BuildingInfo buildingInfo = selectedBuildingPrefab.GetComponent<BuildingInfo>();
         if (buildingInfo == null)
         {
-            Debug.LogError("BuildingInfo component missing.");
+            Debug.LogError($"Building prefab {selectedBuildingPrefab.name} is missing a BuildingInfo component.");
             return;
         }
 
         if (GameManager.Instance.CanAfford(buildingInfo.cost))
         {
             GameManager.Instance.DeductCurrency(buildingInfo.cost);
+
+            // Create placement indicator
             tempIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             tempIndicator.transform.localScale = selectedBuildingPrefab.transform.localScale * 0.5f;
             tempIndicator.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.5f);
-            Destroy(tempIndicator.GetComponent<Collider>());
+            Destroy(tempIndicator.GetComponent<Collider>()); // Remove collider from the indicator
             isPlacing = true;
         }
         else
         {
-            Debug.LogWarning("Not enough currency.");
+            Debug.LogWarning("Not enough currency to place the building.");
             selectedBuildingPrefab = null;
         }
     }
@@ -127,24 +119,26 @@ public class BuildingPlacer : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, placementLayer))
         {
-            if (tempIndicator != null)
-            {
-                tempIndicator.transform.position = hit.point;
-            }
+            tempIndicator.transform.position = hit.point;
         }
     }
 
     private void PlaceBuilding()
     {
-        if (tempIndicator != null)
+        if (tempIndicator == null || selectedBuildingPrefab == null)
         {
-            Vector3 placementPosition = tempIndicator.transform.position;
-            Destroy(tempIndicator);
-            Instantiate(selectedBuildingPrefab, placementPosition, Quaternion.identity);
-            isPlacing = false;
-            selectedBuildingPrefab = null;
-            Debug.Log("Building placed successfully.");
+            Debug.LogWarning("Cannot place building; either no indicator or no building selected.");
+            return;
         }
+
+        Vector3 placementPosition = tempIndicator.transform.position;
+        Destroy(tempIndicator);
+
+        Instantiate(selectedBuildingPrefab, placementPosition, Quaternion.identity);
+        isPlacing = false;
+        selectedBuildingPrefab = null;
+
+        Debug.Log("Building placed successfully.");
     }
 
     private void DestroyTempIndicator()
@@ -163,7 +157,4 @@ public class BuildingPlacer : MonoBehaviour
         isPlacing = false;
         Debug.Log("Building placement canceled.");
     }
-
-
-
 }

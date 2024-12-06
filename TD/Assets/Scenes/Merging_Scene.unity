@@ -579,6 +579,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '====== AI ====== '
       objectReference: {fileID: 0}
+    - target: {fileID: 6716836464469134045, guid: 87c620b2b722ad6438c350090e0969ed, type: 3}
+      propertyPath: timeBetweenWaves
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

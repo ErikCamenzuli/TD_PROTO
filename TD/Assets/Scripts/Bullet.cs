@@ -8,44 +8,57 @@ public class Bullet : MonoBehaviour
     public GameObject impactEffects;
     public Vector3 impactEffectsOffset;
 
-    public GameObject targetObject;
-    public Transform targetTransform;
+    private Transform targetTransform;
 
     public void Seek(Transform _target)
     {
         targetTransform = _target;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(targetTransform == null)
+        if (targetTransform == null)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Destroy the bullet if the target is null
             return;
         }
-
-        targetObject = targetTransform.gameObject;
 
         Vector3 direction = targetTransform.position - transform.position;
         float distanceThisFrame = bulletSpeed * Time.deltaTime;
 
-        if(direction.magnitude <= distanceThisFrame)
+        if (direction.magnitude <= distanceThisFrame)
         {
             HitTarget();
             return;
         }
 
         transform.Translate(direction.normalized * distanceThisFrame, Space.World);
-
     }
 
     void HitTarget()
     {
-        GameObject effects = Instantiate(impactEffects, GetComponent<OffsetMethods>().GetImpactEffectsPosition(), transform.rotation);
-        Destroy(effects, 2f);
+        if (impactEffects != null)
+        {
+            // Instantiate impact effects at the correct position and orientation
+            Vector3 impactPosition = transform.position + impactEffectsOffset;
+            GameObject effects = Instantiate(impactEffects, impactPosition, Quaternion.identity);
+            Destroy(effects, 2f); // Destroy the effects after 2 seconds
+        }
 
-        targetObject.GetComponent<Health>().TakeDamage(bulletDamage);
-        Destroy(this);
+        if (targetTransform != null)
+        {
+            // Check if the target has a Health component and deal damage
+            Health targetHealth = targetTransform.GetComponent<Health>();
+            if (targetHealth != null)
+            {
+                targetHealth.TakeDamage(bulletDamage);
+            }
+            else
+            {
+                Debug.LogWarning("Target does not have a Health component.");
+            }
+        }
+
+        Destroy(gameObject); // Destroy the bullet after hitting the target
     }
 }

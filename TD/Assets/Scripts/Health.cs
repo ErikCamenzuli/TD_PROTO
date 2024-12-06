@@ -1,44 +1,29 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
+    public float fullHealth = 100f;
     private float currentHealth;
-    public float fullHealth;
-    bool isDead = false;
+    private bool isDead = false;
 
-    public Spawner spawner;
+    public delegate void DeathHandler();
+    public event DeathHandler OnDeath;
 
     private void Awake()
     {
         currentHealth = fullHealth;
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void TakeDamage(float damage)
     {
-        spawner = FindObjectOfType<Spawner>();    
-    }
+        if (isDead) return;
 
-    public void TakeDamage(float damageTaken)
-    {
-        if(isDead == false)
+        currentHealth -= damage;
+        if (currentHealth <= 0f)
         {
-            NpcDead();
-            isDead = true; 
+            isDead = true;
+            OnDeath?.Invoke(); // Trigger the death event
+            Destroy(gameObject);
         }
-        //End goal for the AI to get to
-        if (this.gameObject.tag == /*PUT SOMETHING HERE EVENTUALLY ->*/"")
-        {
-            SceneManager.LoadScene("");
-            return;
-        }
-    }
-
-    public void NpcDead()
-    {
-        spawner.enemiesPerwave--;
-        Destroy(this);
     }
 }
