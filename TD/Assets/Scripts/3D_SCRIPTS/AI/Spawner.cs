@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        //Start a new wave if not currently spawning and no enemies are alive
+        Debug.Log($"Update called. EnemiesAlive: {currentEnemiesAlive}, IsSpawning: {isSpawning}");
         if (!isSpawning && currentEnemiesAlive == 0)
         {
             StartCoroutine(SpawnWave());
@@ -31,21 +31,19 @@ public class Spawner : MonoBehaviour
         isSpawning = true;
         Debug.Log($"Starting wave {currentWave} with {enemiesPerWave} enemies.");
 
-        //Spawn all enemies for the current wave
         for (int i = 0; i < enemiesPerWave; i++)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(spawnDelay); 
+            yield return new WaitForSeconds(spawnDelay);
         }
 
-        //Wait before the next wave
         yield return new WaitForSeconds(timeBetweenWaves);
 
-        //Prepare for the next wave
         currentWave++;
-        //Add more enemies per wave
-        enemiesPerWave += 2; 
+        enemiesPerWave += 2;
         isSpawning = false;
+
+        Debug.Log($"Wave {currentWave} prepared. Next wave will have {enemiesPerWave} enemies.");
     }
 
     private void SpawnEnemy()
@@ -62,13 +60,10 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        //Choose a random spawn point
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-        //Instantiate the enemy at the chosen spawn point
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        Debug.Log($"Enemy spawned at {spawnPoint.position}");
 
-        //Assign waypoints to the enemy's script
         WayPoints enemyScript = enemy.GetComponent<WayPoints>();
         if (enemyScript != null)
         {
@@ -79,15 +74,11 @@ public class Spawner : MonoBehaviour
             Debug.LogWarning("Spawned enemy does not have a WayPoints script.");
         }
 
-        //Track the number of alive enemies
         currentEnemiesAlive++;
-
-        //Attach event listener for death handling
         Health enemyHealth = enemy.GetComponent<Health>();
         if (enemyHealth != null)
         {
-            //Subscribe to the OnDeath event
-            enemyHealth.OnDeath += HandleEnemyDeath; 
+            enemyHealth.OnDeath += HandleEnemyDeath;
         }
         else
         {
@@ -98,6 +89,6 @@ public class Spawner : MonoBehaviour
     private void HandleEnemyDeath()
     {
         currentEnemiesAlive--;
-        Debug.Log($"Enemy died. {currentEnemiesAlive} remaining.");
+        Debug.Log($"Enemy died. Remaining enemies: {currentEnemiesAlive}");
     }
 }
