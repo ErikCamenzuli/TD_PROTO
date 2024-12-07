@@ -2,24 +2,24 @@ using UnityEngine;
 
 public class Orbit_Camera : MonoBehaviour
 {
-    public Transform target; //The object the camera orbits around
-    public float distance = 5f; //Initial distance from the target
-    public float orbitSpeed = 100f; //Speed of orbit rotation
-    public float scrollSpeed = 2f; //Speed of zooming in and out
-    public float minDistance = 2f; //Minimum distance to the target
-    public float maxDistance = 15f; //Maximum distance to the target
-    public float zoomSpeed = 5f; //Speed of smooth zooming
+    public Transform target;          //The object the camera orbits around
+    public float distance = 5f;       //Initial distance from the target
+    public float orbitSpeed = 100f;   //Speed of orbit rotation
+    public float scrollSpeed = 2f;    //Speed of zooming in and out
+    public float minDistance = 2f;    //Minimum distance to the target
+    public float maxDistance = 15f;   //Maximum distance to the target
+    public float zoomSpeed = 5f;      //Speed of smooth zooming
     public LayerMask collisionLayers; //Layers to consider as obstacles
 
-    private float currentX = 0f; //Horizontal rotation
-    private float currentY = 0f; //Vertical rotation
-    private float yMinLimit = -20f; //Minimum vertical angle
-    private float yMaxLimit = 80f; //Maximum vertical angle
-    private float desiredDistance; //Desired distance based on user input
+    private float currentX = 0f;      //Horizontal rotation
+    private float currentY = 0f;      //Vertical rotation
+    private float yMinLimit = -20f;   //Minimum vertical angle
+    private float yMaxLimit = 80f;    //Maximum vertical angle
+    private float desiredDistance;    //Desired distance based on user input
 
     void Start()
     {
-        desiredDistance = distance; //Initialize the desired distance
+        desiredDistance = distance; 
     }
 
     void LateUpdate()
