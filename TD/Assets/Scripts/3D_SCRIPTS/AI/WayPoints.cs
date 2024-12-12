@@ -8,7 +8,6 @@ public class WayPoints : MonoBehaviour
     public float moveSpeed = 2f;
     private int currentWayPointId = 0;
 
-    // Update is called once per frame
     void Update()
     {
         //Checking to see if there are any way points then return nothing

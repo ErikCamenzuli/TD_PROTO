@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public float powerRequirement = 10f; // Define the power requirement for this turret
+    public float powerRequirement = 10f; 
 
     private bool isActive = false;
 
     private void Start()
     {
-        // Check if there is enough power to activate this turret when it's created
+        //Check if there is enough power to activate this turret when it's created
         if (GameManager.Instance.HasSufficientPower(powerRequirement))
         {
             ActivateTurret();
@@ -41,7 +41,7 @@ public class Turret : MonoBehaviour
 
     private void Update()
     {
-        // Continuously check if power is sufficient and toggle activation accordingly
+        //Continuously check if power is sufficient and toggle activation accordingly
         if (isActive && !GameManager.Instance.HasSufficientPower(powerRequirement))
         {
             DeactivateTurret();
@@ -54,7 +54,7 @@ public class Turret : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Ensure power requirement is removed when the turret is destroyed
+        //Ensure power requirement is removed when the turret is destroyed
         if (isActive)
         {
             GameManager.Instance.RemoveTurretPowerRequirement(powerRequirement);

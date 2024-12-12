@@ -1,24 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    [Header("Enemy Settings")]
     public GameObject enemyPrefab;
     public Transform[] spawnPoints;
+
+    [Header("Wave Settings")]
     public Transform[] wayPoints;
-    public int enemiesPerwave = 5;
+    public int enemiesPerWave = 5;
+    private int currentEnemiesAlive = 0;
     public float timeBetweenWaves = 5f;
     public float spawnDelay = 0.5f;
 
     private int currentWave = 1;
     private bool isSpawning = false;
 
-    // Update is called once per frame
     void Update()
     {
-        //Checks to see if there's a wave spawnning, if not then the wave will start
-        if(!isSpawning)
+        Debug.Log($"Update called. EnemiesAlive: {currentEnemiesAlive}, IsSpawning: {isSpawning}");
+        if (!isSpawning && currentEnemiesAlive == 0)
         {
             StartCoroutine(SpawnWave());
         }
@@ -26,45 +28,67 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator SpawnWave()
     {
-        //Activate the spawning of the wave
         isSpawning = true;
+        Debug.Log($"Starting wave {currentWave} with {enemiesPerWave} enemies.");
 
-        //Looping how many enemies per wave there is  
-        for(int i = 0; i < enemiesPerwave; i++)
+        for (int i = 0; i < enemiesPerWave; i++)
         {
-            //Spawns enemy
             SpawnEnemy();
-            //Waiting between each spawn
             yield return new WaitForSeconds(spawnDelay);
         }
 
-        //Waiting between each wave
         yield return new WaitForSeconds(timeBetweenWaves);
-        //Increment current wave by 1
+
         currentWave++;
-        //Adding 2 each enemies on each new wave
-        enemiesPerwave += 2;
-        //Disabling the spawning on the wave
+        enemiesPerWave += 2;
         isSpawning = false;
 
+        Debug.Log($"Wave {currentWave} prepared. Next wave will have {enemiesPerWave} enemies.");
     }
 
     private void SpawnEnemy()
     {
-        //Setting the array up for the position of the spawn point(s)
+        if (enemyPrefab == null)
+        {
+            Debug.LogError("Enemy prefab is not assigned!");
+            return;
+        }
+
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogError("No spawn points assigned!");
+            return;
+        }
+
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-        //Setting the enemys gameobject to the prefab, the position of the spawn point and setting no rotation to the prefab
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-        //Setting enemy script to the enemys component for waypoints
-        WayPoints enemyScript = enemy.GetComponent<WayPoints>();
+        Debug.Log($"Enemy spawned at {spawnPoint.position}");
 
-        //Checking to see if the enemies script is null then setting it to
-        //the waypoints
-        if(enemyScript != null)
+        WayPoints enemyScript = enemy.GetComponent<WayPoints>();
+        if (enemyScript != null)
         {
             enemyScript.wayPoints = wayPoints;
         }
+        else
+        {
+            Debug.LogWarning("Spawned enemy does not have a WayPoints script.");
+        }
+
+        currentEnemiesAlive++;
+        Health enemyHealth = enemy.GetComponent<Health>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.OnDeath += HandleEnemyDeath;
+        }
+        else
+        {
+            Debug.LogWarning("Spawned enemy does not have a Health component.");
+        }
     }
 
+    private void HandleEnemyDeath()
+    {
+        currentEnemiesAlive--;
+        Debug.Log($"Enemy died. Remaining enemies: {currentEnemiesAlive}");
+    }
 }
