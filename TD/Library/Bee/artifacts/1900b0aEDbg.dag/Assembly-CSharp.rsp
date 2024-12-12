@@ -367,6 +367,8 @@
 "Assets/Scripts/Bullet.cs"
 "Assets/Scripts/Camera_Orbit.cs"
 "Assets/Scripts/Health.cs"
+"Assets/Scripts/MenuManager.cs"
+"Assets/Scripts/SceneManger.cs"
 -langversion:9.0
 /deterministic
 /optimize-
