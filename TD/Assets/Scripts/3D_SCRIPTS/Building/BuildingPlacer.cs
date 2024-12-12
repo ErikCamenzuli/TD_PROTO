@@ -7,21 +7,7 @@ public class BuildingPlacer : MonoBehaviour
     public GameObject mediumPowerBuildingPrefab;
     public GameObject largePowerBuildingPrefab;
     public GameObject turretPrefab;
-    public GameObject turretPlacementEffect;
     public Vector3 effectsPosition;
-
-    [NonSerialized] public Transform target;
-    public float turretRange = 10f;
-    public float fireRate = 5f;
-    public float fireCountDown = 2.5f;
-
-    public GameObject bulletPrefab;
-    public Transform turretRotationPart;
-    public Transform firePoint;
-    public float turnSpeed = 5f;
-
-    public GameObject[] targetedEnemies = null;
-    public string enemyTag = "Enemy";
 
     private GameObject selectedBuildingPrefab = null;
     //Temporary visual indication for placement
@@ -29,16 +15,8 @@ public class BuildingPlacer : MonoBehaviour
     private bool isPlacing = false;
     public LayerMask placementLayer;
 
-    public AudioClip musicClip;
-    public AudioSource objectAudioSource;
-
     void Update()
     {
-        if (target != null)
-        {
-            RotateTurretTowardsTarget();
-        }
-
         if (isPlacing && tempIndicator != null)
         {
             FollowMousePosition();
@@ -48,16 +26,6 @@ public class BuildingPlacer : MonoBehaviour
                 PlaceBuilding();
             }
         }
-    }
-
-    private void RotateTurretTowardsTarget()
-    {
-        Vector3 direction = target.position - transform.position;
-
-        //Turret rotation
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        Vector3 rotation = Quaternion.Lerp(turretRotationPart.rotation, targetRotation, Time.deltaTime * turnSpeed).eulerAngles;
-        turretRotationPart.rotation = Quaternion.Euler(0, rotation.y, 0);
     }
 
     public void SelectBuilding(int buildingType)
